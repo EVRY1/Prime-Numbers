@@ -111,6 +111,10 @@
             this.Controls.Add(this.NumberText);
             this.Controls.Add(this.VerifyButton);
             this.Controls.Add(this.BackgroundColor);
+            this.DoubleBuffered = true;
+            this.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PrimeNumbersApp";
             this.Text = "Verificare Numere Prime";
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundColor)).EndInit();
