@@ -119,6 +119,7 @@
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "PrimeNumbersApp";
             this.Text = "Verificare Numere Prime";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrimeNumbersApp_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

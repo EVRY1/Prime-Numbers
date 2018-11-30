@@ -18,6 +18,9 @@ namespace PrimeNumbers
         public PrimeNumbersApp()
         {
             InitializeComponent();
+            this.ActiveControl = NumberText;
+            this.KeyPreview = true;
+            NumberText.Focus();
             BackgroundTimer.Interval = 1500;
             BackgroundColor.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
@@ -122,6 +125,21 @@ namespace PrimeNumbers
             else
             {
                 VerifyText.Visible = false;
+            }
+        }
+        private void PrimeNumbersApp_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+            if(e.KeyCode == Keys.Enter)
+            {
+                VerifyButton.PerformClick();
+            }
+            if(e.KeyCode == Keys.ControlKey)
+            {
+                VerifyTextTick.Checked = !VerifyTextTick.Checked;
             }
         }
     }
