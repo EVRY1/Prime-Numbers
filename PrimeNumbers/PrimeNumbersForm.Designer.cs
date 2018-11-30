@@ -114,7 +114,9 @@
             this.DoubleBuffered = true;
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(816, 489);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "PrimeNumbersApp";
             this.Text = "Verificare Numere Prime";
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundColor)).EndInit();
