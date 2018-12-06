@@ -22,12 +22,38 @@ namespace PrimeNumbers
             this.KeyPreview = true;
             NumberText.Focus();
             BackgroundTimer.Interval = 1500;
-            BackgroundColor.BackColor = Color.FromArgb(255, 102, 102, 102);
+            this.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.Text = String.Empty;
             NumberText.MaxLength = 9;
             VerifyTextTick.Checked = false;
             VerifyText.Visible = false;
+        }
+        public String PrimeStatus(string CurrentStatus)
+        {
+            switch (CurrentStatus)
+            {
+                case "True":
+                    {
+                        return "Numarul este prim.";
+                    }
+                case "False":
+                    {
+                        return "Numarul nu este prim.";
+                    }
+                case "Empty":
+                    {
+                        return "Spatiu gol?";
+                    }
+                case "WeirdExist":
+                    {
+                        return "Nu este numar.";
+                    }
+                default:
+                    {
+                        return PrimeStatus(CurrentStatus);
+                    }
+            }
         }
         private void NumberText_TextChanged(object sender, EventArgs e)
         {
@@ -52,9 +78,9 @@ namespace PrimeNumbers
                     NonNumbersFound = false;
                     NonNumbersIndex = 0;
                 }
-                BackgroundColor.BackColor = Color.FromArgb(255, 255, 255, 102);
+                this.BackColor = Color.FromArgb(255, 255, 255, 102);
                 VerifyText.BackColor = Color.FromArgb(255, 255, 255, 102);
-                VerifyText.Text = "??";
+                VerifyText.Text = PrimeStatus("WeirdExist");
             }
             else
             {
@@ -63,7 +89,7 @@ namespace PrimeNumbers
                     IntegerNumber = Convert.ToUInt32(CharNumber);
                     NumberCheck = true;
                 }
-                BackgroundColor.BackColor = Color.FromArgb(255, 102, 102, 102);
+                this.BackColor = Color.FromArgb(255, 102, 102, 102);
                 VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
                 VerifyText.Text = String.Empty;
             }
@@ -74,9 +100,9 @@ namespace PrimeNumbers
             bool isComposite = new Boolean();
             if (String.IsNullOrEmpty(NumberText.Text))
             {
-                BackgroundColor.BackColor = Color.FromArgb(255, 102, 102, 255);
+                this.BackColor = Color.FromArgb(255, 102, 102, 255);
                 VerifyText.BackColor = Color.FromArgb(255, 102, 102, 255);
-                VerifyText.Text = "!!";
+                VerifyText.Text = PrimeStatus("Empty");
                 BackgroundTimer.Start();
             }
             else
@@ -85,24 +111,24 @@ namespace PrimeNumbers
                 {
                     if (IntegerNumber <= 1)
                     {
-                        BackgroundColor.BackColor = Color.FromArgb(255, 255, 102, 102);
+                        this.BackColor = Color.FromArgb(255, 255, 102, 102);
                         VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
-                        VerifyText.Text = "XX";
+                        VerifyText.Text = PrimeStatus("False");
                     }
                     while (Composite <= (int)Math.Ceiling(Math.Sqrt(IntegerNumber)) && isComposite == false)
                     {
                         if (IntegerNumber % Composite == 0 && IntegerNumber != 2)
                         {
                             isComposite = true;
-                            BackgroundColor.BackColor = Color.FromArgb(255, 255, 102, 102);
+                            this.BackColor = Color.FromArgb(255, 255, 102, 102);
                             VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
-                            VerifyText.Text = "XX";
+                            VerifyText.Text = PrimeStatus("False");
                         }
                         else
                         {
-                            BackgroundColor.BackColor = Color.FromArgb(255, 102, 255, 102);
+                            this.BackColor = Color.FromArgb(255, 102, 255, 102);
                             VerifyText.BackColor = Color.FromArgb(255, 102, 255, 102);
-                            VerifyText.Text = "OK";
+                            VerifyText.Text = PrimeStatus("True");
                         }
                         Composite++;
                     }
@@ -112,7 +138,7 @@ namespace PrimeNumbers
         }
         private void BackgroundTimer_Tick(object sender, EventArgs e)
         {
-            BackgroundColor.BackColor = Color.FromArgb(255, 102, 102, 102);
+            this.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.Text = String.Empty;
         }

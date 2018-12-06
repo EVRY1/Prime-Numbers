@@ -31,11 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.VerifyButton = new System.Windows.Forms.Button();
             this.NumberText = new System.Windows.Forms.TextBox();
-            this.BackgroundColor = new System.Windows.Forms.PictureBox();
             this.BackgroundTimer = new System.Windows.Forms.Timer(this.components);
             this.VerifyText = new System.Windows.Forms.Label();
             this.VerifyTextTick = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundColor)).BeginInit();
             this.SuspendLayout();
             // 
             // VerifyButton
@@ -63,18 +61,9 @@
             this.NumberText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumberText.TextChanged += new System.EventHandler(this.NumberText_TextChanged);
             // 
-            // BackgroundColor
-            // 
-            this.BackgroundColor.BackColor = System.Drawing.Color.LightGray;
-            this.BackgroundColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BackgroundColor.Location = new System.Drawing.Point(0, 0);
-            this.BackgroundColor.Name = "BackgroundColor";
-            this.BackgroundColor.Size = new System.Drawing.Size(800, 450);
-            this.BackgroundColor.TabIndex = 2;
-            this.BackgroundColor.TabStop = false;
-            // 
             // BackgroundTimer
             // 
+            this.BackgroundTimer.Interval = 1500;
             this.BackgroundTimer.Tick += new System.EventHandler(this.BackgroundTimer_Tick);
             // 
             // VerifyText
@@ -110,7 +99,6 @@
             this.Controls.Add(this.VerifyText);
             this.Controls.Add(this.NumberText);
             this.Controls.Add(this.VerifyButton);
-            this.Controls.Add(this.BackgroundColor);
             this.DoubleBuffered = true;
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.MaximizeBox = false;
@@ -120,7 +108,6 @@
             this.Name = "PrimeNumbersApp";
             this.Text = "Verificare Numere Prime";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrimeNumbersApp_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,7 +117,6 @@
 
         private System.Windows.Forms.Button VerifyButton;
         private System.Windows.Forms.TextBox NumberText;
-        private System.Windows.Forms.PictureBox BackgroundColor;
         private System.Windows.Forms.Timer BackgroundTimer;
         private System.Windows.Forms.Label VerifyText;
         private System.Windows.Forms.CheckBox VerifyTextTick;
