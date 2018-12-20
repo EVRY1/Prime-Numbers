@@ -29,6 +29,10 @@ namespace PrimeNumbers
             VerifyTextTick.Checked = false;
             VerifyText.Visible = false;
         }
+        public void ForceIntegerNumber(UInt32 Forced)
+        {
+            IntegerNumber = Forced;
+        }
         public String PrimeStatus(string CurrentStatus)
         {
             switch (CurrentStatus)
@@ -55,7 +59,7 @@ namespace PrimeNumbers
                     }
             }
         }
-        private void NumberText_TextChanged(object sender, EventArgs e)
+        public void NumberText_TextChanged(object sender, EventArgs e)
         {
             BackgroundTimer.Stop();
             CharNumber = NumberText.Text;
@@ -94,10 +98,29 @@ namespace PrimeNumbers
                 VerifyText.Text = String.Empty;
             }
         }
-        private void VerifyButton_Click(object sender, EventArgs e)
+        public String PrimeAlgorithm()
         {
             int Composite = 2;
             bool isComposite = new Boolean();
+            while (Composite <= (int)Math.Ceiling(Math.Sqrt(IntegerNumber)) && isComposite == false)
+            {
+                if (IntegerNumber % Composite == 0 && IntegerNumber != 2)
+                {
+                    isComposite = true;
+                    this.BackColor = Color.FromArgb(255, 255, 102, 102);
+                    VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
+                }
+                else
+                {
+                    this.BackColor = Color.FromArgb(255, 102, 255, 102);
+                    VerifyText.BackColor = Color.FromArgb(255, 102, 255, 102);
+                }
+                Composite++; 
+            }
+            return PrimeStatus(Convert.ToString(!isComposite));
+        }
+        public void VerifyButton_Click(object sender, EventArgs e)
+        {
             if (String.IsNullOrEmpty(NumberText.Text))
             {
                 this.BackColor = Color.FromArgb(255, 102, 102, 255);
@@ -115,34 +138,21 @@ namespace PrimeNumbers
                         VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
                         VerifyText.Text = PrimeStatus("False");
                     }
-                    while (Composite <= (int)Math.Ceiling(Math.Sqrt(IntegerNumber)) && isComposite == false)
+                    else
                     {
-                        if (IntegerNumber % Composite == 0 && IntegerNumber != 2)
-                        {
-                            isComposite = true;
-                            this.BackColor = Color.FromArgb(255, 255, 102, 102);
-                            VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
-                            VerifyText.Text = PrimeStatus("False");
-                        }
-                        else
-                        {
-                            this.BackColor = Color.FromArgb(255, 102, 255, 102);
-                            VerifyText.BackColor = Color.FromArgb(255, 102, 255, 102);
-                            VerifyText.Text = PrimeStatus("True");
-                        }
-                        Composite++;
+                        VerifyText.Text = PrimeAlgorithm();
                     }
                     BackgroundTimer.Start();
                 }
             }
         }
-        private void BackgroundTimer_Tick(object sender, EventArgs e)
+        public void BackgroundTimer_Tick(object sender, EventArgs e)
         {
             this.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
             VerifyText.Text = String.Empty;
         }
-        private void VerifyTextTick_CheckedChanged(object sender, EventArgs e)
+        public void VerifyTextTick_CheckedChanged(object sender, EventArgs e)
         {
             if (VerifyTextTick.Checked == true)
             {
@@ -153,7 +163,7 @@ namespace PrimeNumbers
                 VerifyText.Visible = false;
             }
         }
-        private void PrimeNumbersApp_KeyDown(object sender, KeyEventArgs e)
+        public void PrimeNumbersApp_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
