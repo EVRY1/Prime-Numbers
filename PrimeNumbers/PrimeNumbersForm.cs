@@ -98,7 +98,7 @@ namespace PrimeNumbers
                 VerifyText.Text = String.Empty;
             }
         }
-        public String PrimeAlgorithm()
+        public Boolean PrimeAlgorithm()
         {
             int Composite = 2;
             bool isComposite = new Boolean();
@@ -117,7 +117,7 @@ namespace PrimeNumbers
                 }
                 Composite++; 
             }
-            return PrimeStatus(Convert.ToString(!isComposite));
+            return (!isComposite);
         }
         public void VerifyButton_Click(object sender, EventArgs e)
         {
@@ -140,7 +140,7 @@ namespace PrimeNumbers
                     }
                     else
                     {
-                        VerifyText.Text = PrimeAlgorithm();
+                        VerifyText.Text = PrimeStatus(Convert.ToString(PrimeAlgorithm()));
                     }
                     BackgroundTimer.Start();
                 }
