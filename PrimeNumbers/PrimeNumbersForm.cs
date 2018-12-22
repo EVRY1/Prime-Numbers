@@ -12,9 +12,9 @@ namespace PrimeNumbers
 {
     public partial class PrimeNumbersApp : Form
     {
-        uint IntegerNumber = new UInt32();
+        uint IntegerNumber = 0;
         String CharNumber;
-        bool NumberCheck = new Boolean();
+        bool NumberCheck = false;
         public PrimeNumbersApp()
         {
             InitializeComponent();
@@ -28,10 +28,72 @@ namespace PrimeNumbers
             NumberText.MaxLength = 9;
             VerifyTextTick.Checked = false;
             VerifyText.Visible = false;
-        }
-        public void ForceIntegerNumber(UInt32 Forced)
-        {
-            IntegerNumber = Forced;
+            NumberText.TextChanged += (sender, e) => //!
+            {
+                BackgroundTimer.Stop();
+                CharNumber = ((TextBox)sender).Text;
+                int CharNumberIndex = 0;
+                bool NonNumbersFound = false;
+                int NonNumbersIndex = 0;
+                while ((CharNumber.Length > CharNumberIndex) && (NonNumbersFound == false))
+                {
+                    if (!(CharNumber[CharNumberIndex] >= '0' && CharNumber[CharNumberIndex] <= '9'))
+                    {
+                        NonNumbersFound = true;
+                        NonNumbersIndex = CharNumberIndex;
+                    }
+                    CharNumberIndex++;
+                }
+                if (NonNumbersFound == true)
+                {
+                    if (((TextBox)sender).Text.Length <= NonNumbersIndex)
+                    {
+                        NonNumbersFound = false;
+                        NonNumbersIndex = 0;
+                    }
+                    this.BackColor = Color.FromArgb(255, 255, 255, 102);
+                    VerifyText.BackColor = Color.FromArgb(255, 255, 255, 102);
+                    VerifyText.Text = PrimeStatus("WeirdExist");
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(((TextBox)sender).Text))
+                    {
+                        IntegerNumber = Convert.ToUInt32(CharNumber);
+                        NumberCheck = true;
+                    }
+                    this.BackColor = Color.FromArgb(255, 102, 102, 102);
+                    VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
+                    VerifyText.Text = String.Empty;
+                }
+            }; //!
+            VerifyButton.Click += (sender, e) => //!
+            {
+                if (String.IsNullOrEmpty(NumberText.Text))
+                {
+                    this.BackColor = Color.FromArgb(255, 102, 102, 255);
+                    VerifyText.BackColor = Color.FromArgb(255, 102, 102, 255);
+                    VerifyText.Text = PrimeStatus("Empty");
+                    BackgroundTimer.Start();
+                }
+                else
+                {
+                    if (NumberCheck == true)
+                    {
+                        if (IntegerNumber <= 1)
+                        {
+                            this.BackColor = Color.FromArgb(255, 255, 102, 102);
+                            VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
+                            VerifyText.Text = PrimeStatus("False");
+                        }
+                        else
+                        {
+                            VerifyText.Text = PrimeStatus(Convert.ToString(PrimeAlgorithm(IntegerNumber)));
+                        }
+                        BackgroundTimer.Start();
+                    }
+                }
+            }; //!
         }
         public String PrimeStatus(string CurrentStatus)
         {
@@ -59,52 +121,13 @@ namespace PrimeNumbers
                     }
             }
         }
-        public void NumberText_TextChanged(object sender, EventArgs e)
-        {
-            BackgroundTimer.Stop();
-            CharNumber = NumberText.Text;
-            int CharNumberIndex = new Int32();
-            bool NonNumbersFound = new Boolean();
-            int NonNumbersIndex = new Int16();
-            while ((CharNumberIndex < CharNumber.Length) && (NonNumbersFound == false))
-            {
-                if (!(CharNumber[CharNumberIndex] >= '0' && CharNumber[CharNumberIndex] <= '9'))
-                {
-                    NonNumbersFound = true;
-                    NonNumbersIndex = CharNumberIndex;
-                }
-                CharNumberIndex++;
-            }
-            if (NonNumbersFound == true)
-            {
-                if (NumberText.Text.Length <= NonNumbersIndex)
-                {
-                    NonNumbersFound = false;
-                    NonNumbersIndex = 0;
-                }
-                this.BackColor = Color.FromArgb(255, 255, 255, 102);
-                VerifyText.BackColor = Color.FromArgb(255, 255, 255, 102);
-                VerifyText.Text = PrimeStatus("WeirdExist");
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(NumberText.Text))
-                {
-                    IntegerNumber = Convert.ToUInt32(CharNumber);
-                    NumberCheck = true;
-                }
-                this.BackColor = Color.FromArgb(255, 102, 102, 102);
-                VerifyText.BackColor = Color.FromArgb(255, 102, 102, 102);
-                VerifyText.Text = String.Empty;
-            }
-        }
-        public Boolean PrimeAlgorithm()
+        public Boolean PrimeAlgorithm(uint integerNumber)
         {
             int Composite = 2;
-            bool isComposite = new Boolean();
-            while (Composite <= (int)Math.Ceiling(Math.Sqrt(IntegerNumber)) && isComposite == false)
+            bool isComposite = false;
+            while (Composite <= (int)Math.Ceiling(Math.Sqrt(integerNumber)) && isComposite == false)
             {
-                if (IntegerNumber % Composite == 0 && IntegerNumber != 2)
+                if (integerNumber % Composite == 0 && integerNumber != 2)
                 {
                     isComposite = true;
                     this.BackColor = Color.FromArgb(255, 255, 102, 102);
@@ -118,33 +141,6 @@ namespace PrimeNumbers
                 Composite++; 
             }
             return (!isComposite);
-        }
-        public void VerifyButton_Click(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(NumberText.Text))
-            {
-                this.BackColor = Color.FromArgb(255, 102, 102, 255);
-                VerifyText.BackColor = Color.FromArgb(255, 102, 102, 255);
-                VerifyText.Text = PrimeStatus("Empty");
-                BackgroundTimer.Start();
-            }
-            else
-            {
-                if (NumberCheck == true)
-                {
-                    if (IntegerNumber <= 1)
-                    {
-                        this.BackColor = Color.FromArgb(255, 255, 102, 102);
-                        VerifyText.BackColor = Color.FromArgb(255, 255, 102, 102);
-                        VerifyText.Text = PrimeStatus("False");
-                    }
-                    else
-                    {
-                        VerifyText.Text = PrimeStatus(Convert.ToString(PrimeAlgorithm()));
-                    }
-                    BackgroundTimer.Start();
-                }
-            }
         }
         public void BackgroundTimer_Tick(object sender, EventArgs e)
         {

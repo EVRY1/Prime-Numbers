@@ -47,7 +47,6 @@
             this.VerifyButton.TabIndex = 0;
             this.VerifyButton.Text = "Verify";
             this.VerifyButton.UseVisualStyleBackColor = true;
-            this.VerifyButton.Click += new System.EventHandler(this.VerifyButton_Click);
             // 
             // NumberText
             // 
@@ -59,7 +58,6 @@
             this.NumberText.Size = new System.Drawing.Size(776, 67);
             this.NumberText.TabIndex = 1;
             this.NumberText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumberText.TextChanged += new System.EventHandler(this.NumberText_TextChanged);
             // 
             // BackgroundTimer
             // 
